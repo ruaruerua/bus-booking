@@ -24,5 +24,8 @@ func Route() *gin.Engine {
 	router.POST("/alogin", controllers.Alogin)
 	router.POST("/bus", controllers.InsertBus)
 	router.PUT("/bus/:busID", controllers.UpdateBus)
+	router.GET("/code", controllers.AllCodes)
+	router.PUT("/code/:codeID", controllers.FAcodes)
+	router.PUT("/order/:orderID", controllers.UpdateOrder)
 	return router
 }

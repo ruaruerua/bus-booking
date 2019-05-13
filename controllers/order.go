@@ -55,5 +55,19 @@ func Book(c *gin.Context) {
 		util.BadRequest(c)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK,})
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
+}
+func UpdateOrder(c *gin.Context) {
+	session, err := c.Cookie("session")
+	if err != nil {
+		util.Unauthorized(c)
+		return
+	}
+	order := models.Order{OrderID: c.Param("orderID")}
+	err = models.Updateorder(&order, &session)
+	if err != nil {
+		util.BadRequest(c)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusOK})
 }

@@ -52,22 +52,21 @@ func InsertBus(c *gin.Context) {
 		util.Unauthorized(c)
 		return
 	}
-	user:=models.User{}
 	License := c.PostForm("license")
 	//TotalSeats:= c.PostForm("totalSeats")
-	TotalSeats,err := strconv.Atoi(c.PostForm("totalSeats"))
-	Departure  := c.PostForm("departure")
-	Destination:= c.PostForm("destination")
-	BeginAt    := c.PostForm("startAt")
-	EndAt      := c.PostForm("endAt")
-	Price ,err := strconv.ParseFloat(c.PostForm("price"),64)
-	Info      := c.PostForm("info")
-	week ,err := strconv.Atoi(c.PostForm("weekly"))
-	var weekly=uint8(week)
-	sta ,err := strconv.Atoi(c.PostForm("status"))
-	var status=uint8(sta)
-	bus := models.Bus{License: License,TotalSeats: TotalSeats,Departure: Departure,Destination: Destination,BeginAt: BeginAt,EndAt: EndAt,Price: Price,Info: Info,Weekly: weekly,Status: status}
-	err = models.InsertBus(&bus,&user,&session)
+	TotalSeats, err := strconv.Atoi(c.PostForm("totalSeats"))
+	Departure := c.PostForm("departure")
+	Destination := c.PostForm("destination")
+	BeginAt := c.PostForm("startAt")
+	EndAt := c.PostForm("endAt")
+	Price, err := strconv.ParseFloat(c.PostForm("price"), 64)
+	Info := c.PostForm("info")
+	week, err := strconv.Atoi(c.PostForm("weekly"))
+	var weekly = uint8(week)
+	sta, err := strconv.Atoi(c.PostForm("status"))
+	var status = uint8(sta)
+	bus := models.Bus{License: License, TotalSeats: TotalSeats, Departure: Departure, Destination: Destination, BeginAt: BeginAt, EndAt: EndAt, Price: Price, Info: Info, Weekly: weekly, Status: status}
+	err = models.InsertBus(&bus, &session)
 	if err != nil {
 		util.BadRequest(c)
 		return
@@ -81,7 +80,6 @@ func UpdateBus(c *gin.Context) {
 		util.Unauthorized(c)
 		return
 	}
-	user:=models.User{}
 	bus := models.Bus{BusID: c.Param("busID")}
 	err = models.OneBus(&bus)
 	if err != nil {
@@ -89,78 +87,78 @@ func UpdateBus(c *gin.Context) {
 		return
 	}
 	nLicense := c.PostForm("license")
-	if nLicense!=""{
+	if nLicense != "" {
 		//bus = models.Bus{License: nLicense}
-		bus.License=nLicense
+		bus.License = nLicense
 	}
-	nTotalSeats:= c.PostForm("totalSeats")
-	if nTotalSeats!=""{
-		TotalSeats,err:=strconv.Atoi(nTotalSeats)
+	nTotalSeats := c.PostForm("totalSeats")
+	if nTotalSeats != "" {
+		TotalSeats, err := strconv.Atoi(nTotalSeats)
 		if err != nil {
 			util.BadRequest(c)
 			return
 		}
 		//bus = models.Bus{TotalSeats: TotalSeats,BusID: busid}
-		bus.TotalSeats=TotalSeats
+		bus.TotalSeats = TotalSeats
 	}
-	nDeparture:= c.PostForm("departure")
-	if nDeparture!=""{
+	nDeparture := c.PostForm("departure")
+	if nDeparture != "" {
 		//bus = models.Bus{Departure: nDeparture,BusID: busid}
-		bus.Departure=nDeparture
+		bus.Departure = nDeparture
 	}
-	nDestination:= c.PostForm("destination")
-	if nDestination!=""{
+	nDestination := c.PostForm("destination")
+	if nDestination != "" {
 		//bus = models.Bus{Destination: nDestination,BusID: busid}
-		bus.Destination=nDestination
+		bus.Destination = nDestination
 	}
-	nBeginAt    := c.PostForm("startAt")
-	if nBeginAt!=""{
+	nBeginAt := c.PostForm("startAt")
+	if nBeginAt != "" {
 		//bus = models.Bus{BeginAt: nBeginAt,BusID: busid}
-		bus.BeginAt=nBeginAt
+		bus.BeginAt = nBeginAt
 	}
-	nEndAt      := c.PostForm("endAt")
-	if nEndAt!=""{
+	nEndAt := c.PostForm("endAt")
+	if nEndAt != "" {
 		//bus = models.Bus{EndAt: nEndAt,BusID: busid}
-		bus.EndAt=nEndAt
+		bus.EndAt = nEndAt
 	}
-	nPrice     := c.PostForm("price")
-	if nPrice!=""{
-		Price,err := strconv.ParseFloat(nPrice,64)
+	nPrice := c.PostForm("price")
+	if nPrice != "" {
+		Price, err := strconv.ParseFloat(nPrice, 64)
 		if err != nil {
 			util.BadRequest(c)
 			return
 		}
 		//bus = models.Bus{Price: Price,BusID: busid}
-		bus.Price=Price
+		bus.Price = Price
 	}
-	nInfo      := c.PostForm("info")
-	if nInfo!=""{
+	nInfo := c.PostForm("info")
+	if nInfo != "" {
 		//bus = models.Bus{Info: nInfo,BusID: busid}
-		bus.Info=nInfo
+		bus.Info = nInfo
 	}
-	nweek  := c.PostForm("weekly")
-	if nweek!=""{
-		week,err:=strconv.Atoi(nweek)
+	nweek := c.PostForm("weekly")
+	if nweek != "" {
+		week, err := strconv.Atoi(nweek)
 		if err != nil {
 			util.BadRequest(c)
 			return
 		}
-		weekly:=uint8(week)
+		weekly := uint8(week)
 		//bus = models.Bus{Weekly: weekly,BusID: busid}
-		bus.Weekly=weekly
+		bus.Weekly = weekly
 	}
-	nsta  := c.PostForm("status")
-	if nsta!=""{
-		sta,err:=strconv.Atoi(nsta)
+	nsta := c.PostForm("status")
+	if nsta != "" {
+		sta, err := strconv.Atoi(nsta)
 		if err != nil {
 			util.BadRequest(c)
 			return
 		}
-		status:=uint8(sta)
+		status := uint8(sta)
 		//bus = models.Bus{Status: status,BusID: busid}
-		bus.Status=status
+		bus.Status = status
 	}
-	err = models.UpdateBus(&user,&bus,&session)
+	err = models.UpdateBus(&bus, &session)
 	if err != nil {
 		util.BadRequest(c)
 		return

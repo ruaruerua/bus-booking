@@ -49,28 +49,30 @@ func OneBus(b *Bus) error {
 	return nil
 }
 
-func UpdateBus(u *User,b *Bus, session *string) error {
-	err := NowUser(u, session)
-	if err != nil || u.IsAdmin !=true {
+func UpdateBus(b *Bus, session *string) error {
+	var user User
+	err := NowUser(&user, session)
+	if err != nil || user.IsAdmin != true {
 		return errors.New("update bus: error")
 	}
 	go func(b *Bus) {
 		stmt, err := util.DB.Prepare("UPDATE buses SET license = ?, total_seats = ? , empty_seats = ?, departure = ?, destination = ?, start_at = ?, end_at = ?, price = ?, info = ?, weekly = ?, status = ? WHERE id = ?")
 		util.Report(err)
-		_, err = stmt.Query(b.License,b.TotalSeats,b.TotalSeats,b.Departure,b.Destination,b.BeginAt,b.EndAt,b.Price,b.Info,b.Weekly,b.Status,b.BusID)
+		_, err = stmt.Query(b.License, b.TotalSeats, b.TotalSeats, b.Departure, b.Destination, b.BeginAt, b.EndAt, b.Price, b.Info, b.Weekly, b.Status, b.BusID)
 		util.Report(err)
 	}(b)
 	return nil
 }
-func InsertBus(b *Bus,u *User, session *string) error {
-	err := NowUser(u, session)
-	if err != nil || u.IsAdmin !=true {
+func InsertBus(b *Bus, session *string) error {
+	var user User
+	err := NowUser(&user, session)
+	if err != nil || user.IsAdmin != true {
 		return errors.New("update bus: error")
 	}
 	go func(b *Bus) {
 		stmt, err := util.DB.Prepare("INSERT INTO buses (license, total_seats,empty_seats,departure,destination,start_at,end_at,price,info,weekly,status) VALUES ( ?, ?,?,?,?,?,?,?,?,?,?)")
 		util.Report(err)
-		_, err = stmt.Query(b.License,b.TotalSeats,b.TotalSeats,b.Departure,b.Destination,b.BeginAt,b.EndAt,b.Price,b.Info,b.Weekly,b.Status)
+		_, err = stmt.Query(b.License, b.TotalSeats, b.TotalSeats, b.Departure, b.Destination, b.BeginAt, b.EndAt, b.Price, b.Info, b.Weekly, b.Status)
 		util.Report(err)
 	}(b)
 	return nil

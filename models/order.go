@@ -13,7 +13,7 @@ type Order struct {
 	Status  uint8  `json:"status"`
 }
 
-func AllOrders(o *[] Order, session *string) error {
+func AllOrders(o *[]Order, session *string) error {
 	var user User
 	err := NowUser(&user, session)
 	util.Report(err)
@@ -107,4 +107,18 @@ func Book(session *string, busID *string) error {
 	} else {
 		return errors.New("book: failed")
 	}
+}
+func Updateorder(b *Order, session *string) error {
+	var user User
+	err := NowUser(&user, session)
+	if err != nil || user.IsAdmin != true {
+		return errors.New("admin error")
+	}
+	go func(b *Order) {
+		stmt, err := util.DB.Prepare("UPDATE orders SET status = 1 WHERE id = ?")
+		util.Report(err)
+		_, err = stmt.Query(b.OrderID)
+		util.Report(err)
+	}(b)
+	return nil
 }
