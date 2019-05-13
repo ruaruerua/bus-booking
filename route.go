@@ -21,5 +21,8 @@ func Route() *gin.Engine {
 	router.GET("/favorite", controllers.AllFavorites)
 	router.POST("/favorite", controllers.Favorite)
 	router.DELETE("/favorite", controllers.Unfavorite)
+	router.POST("/alogin", controllers.Alogin)
+	router.POST("/bus", controllers.InsertBus)
+	router.PUT("/bus/:busID", controllers.UpdateBus)
 	return router
 }
