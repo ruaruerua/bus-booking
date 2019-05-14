@@ -129,7 +129,7 @@ func check(u *User) bool {
 	util.Report(err)
 	rows, err := stmt.Query(u.Account)
 	util.Report(err)
-	if  !rows.Next() {
+	if !rows.Next() {
 		return false
 	}
 	var user User
@@ -178,3 +178,17 @@ func updateUserCache(u *User, session *string) {
 	}).Result()
 	util.Report(err)
 }
+
+//func Oneuser(u *User) error {
+//	stmt, err := util.DB.Prepare("SELECT * FROM users WHERE id = ?")
+//	util.Report(err)
+//	rows, err := stmt.Query(b.BusID)
+//	util.Report(err)
+//	if !rows.Next() {
+//		return errors.New("bus: error")
+//	}
+//	err = rows.Scan(&b.BusID, &b.License, &b.TotalSeats, &b.EmptySeats, &b.Departure, &b.Destination, &b.BeginAt,
+//		&b.EndAt, &b.Price, &b.Info, &b.Weekly, &b.Status)
+//	util.Report(err)
+//	return nil
+//}

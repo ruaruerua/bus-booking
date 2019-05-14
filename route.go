@@ -31,5 +31,6 @@ func Route() *gin.Engine {
 	router.POST("/comment", controllers.InsertComment)
 	router.DELETE("/comment", controllers.Deletecomment)
 	router.PUT("/comment/:commentID", controllers.ReplyComment)
+	router.PUT("/billing", controllers.Billing)
 	return router
 }
