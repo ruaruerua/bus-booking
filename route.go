@@ -27,5 +27,9 @@ func Route() *gin.Engine {
 	router.GET("/code", controllers.AllCodes)
 	router.PUT("/code/:codeID", controllers.FAcodes)
 	router.PUT("/order/:orderID", controllers.UpdateOrder)
+	router.GET("/comment/:busID", controllers.Commentlist)
+	router.POST("/comment", controllers.InsertComment)
+	router.DELETE("/comment", controllers.Deletecomment)
+	router.PUT("/comment/:commentID", controllers.ReplyComment)
 	return router
 }

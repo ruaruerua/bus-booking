@@ -23,6 +23,9 @@ func AllCodes(b *[]Codes, session *string) error {
 	var codes Codes
 	rows, err := stmt.Query()
 	util.Report(err)
+	if !rows.Next() {
+		return errors.New("error")
+	}
 	for rows.Next() {
 		err := rows.Scan(&codes.CodeID, &codes.Codecode, &codes.CodeStatus, &user.UserID, &codes.UseAt)
 		util.Report(err)

@@ -44,7 +44,7 @@ func OneOrder(o *Order, session *string) error {
 	rows, err := stmt.Query(user.UserID, o.OrderID)
 	util.Report(err)
 	if !rows.Next() {
-		return errors.New("bus: error")
+		return errors.New("error")
 	}
 	err = rows.Scan(&o.OrderID, &o.OrderAt, &o.Status, &o.Bus.BusID, &o.Bus.License, &o.Bus.TotalSeats,
 		&o.Bus.EmptySeats, &o.Bus.Departure, &o.Bus.Destination, &o.Bus.BeginAt, &o.Bus.EndAt, &o.Bus.Price,
